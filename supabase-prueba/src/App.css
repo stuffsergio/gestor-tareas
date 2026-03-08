@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+:root {
+  --white-fun: "#ededed";
+  --black-fun: "#000";
+  --blue-fun: "#0072f5";
+  --gray-fun: "#1f1f1f";
+  --stone-fun: "#a1a1a1";
+}

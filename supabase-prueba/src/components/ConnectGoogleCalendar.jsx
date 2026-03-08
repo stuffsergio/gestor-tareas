@@ -29,8 +29,7 @@ export default function ConnectGoogleCalendar() {
           access_type: "offline",
           prompt: "consent", // esto fuerza que google muestre los permisos
         },
-        redirectTo:
-          "https://fzqicfcccltlanyyzdfd.supabase.co/functions/v1/google-calendar",
+        redirectTo: window.location.origin,
       },
     });
   };
