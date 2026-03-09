@@ -20,7 +20,7 @@ export default function SignUp() {
       setMessage("Error: ", error.message);
     } else {
       setMessage("Credenciales correctas, bienvenido al sistema");
-      navigate("/");
+      navigate("/home");
     }
   };
 

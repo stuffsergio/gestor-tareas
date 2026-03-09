@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { supabase } from "./lib/supabaseClient";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -17,6 +20,7 @@ export default function SignUp() {
       setMessage("Error: ", error.message);
     } else {
       setMessage("Revisa tu bandeja de entrada para confirmar");
+      navigate("/home");
     }
   };
 
