@@ -21,17 +21,42 @@ export default function ConnectGoogleCalendar() {
   }, [session]);
 
   const handleConnect = async () => {
-    await supabase.auth.linkIdentity({
-      provider: "google",
-      options: {
-        scopes: "https://www.googleapis.com/auth/calendar.events",
-        queryParams: {
-          access_type: "offline",
-          prompt: "consent", // esto fuerza que google muestre los permisos
+    // Verificamos si ya tiene Google como provider en Supabase
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    const hasGoogleIdentity = user?.identities.some(
+      // devuelve true si alguno de los providers (identities) del usuario es "google"
+      (i) => i.provider === "google",
+    );
+
+    if (hasGoogleIdentity) {
+      // si la tiene, refresca la sesión para obtener el token -> auth
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          scopes: "https://www.googleapis.com/auth/calendar.events",
+          queryParams: {
+            access_type: "offline",
+            prompt: "consent",
+          },
+          redirectTo: window.location.origin,
         },
-        redirectTo: window.location.origin,
-      },
-    });
+      });
+    } else {
+      // si no la tiene, se vincula con google -> linkIdentity
+      await supabase.auth.linkIdentity({
+        provider: "google",
+        options: {
+          scopes: "https://www.googleapis.com/auth/calendar.events",
+          queryParams: {
+            access_type: "offline",
+            prompt: "consent",
+          },
+          redirectTo: window.location.origin,
+        },
+      });
+    }
   };
 
   const handleDisconnect = async () => {
