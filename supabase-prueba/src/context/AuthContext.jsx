@@ -18,6 +18,13 @@ async function guardarGoogleToken(session) {
       console.log("Error guardando el token: " + error);
     } else {
       console.log("✅ Google token guardado");
+      // Si venimos de un auth redirect -> redirigir a /home
+      if (
+        window.location.pathname === "/" ||
+        window.location.search.includes("code=")
+      ) {
+        window.location.href = "/home";
+      }
     }
   }
 }

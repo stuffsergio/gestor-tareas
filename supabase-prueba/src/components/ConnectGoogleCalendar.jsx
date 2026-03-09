@@ -8,44 +8,44 @@ export default function ConnectGoogleCalendar() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!session) return;
-
-    supabase
-      .from("google_tokens")
-      .select("user_id")
-      .eq("user_id", session.user.id)
-      .then(({ data }) => {
-        setConnected(data?.length > 0);
-        setLoading(false);
-      });
+    if (!session?.user) return;
+    checkConnected();
   }, [session]);
 
+  async function checkConnected() {
+    const { data } = await supabase
+      .from("google_tokens")
+      .select("user_id")
+      .eq("user_id", session.user.id);
+    setConnected(data?.length > 0);
+    setLoading(false);
+  }
+
   const handleConnect = async () => {
-    // Verificamos si ya tiene Google como provider en Supabase
     const {
       data: { user },
     } = await supabase.auth.getUser();
-    const hasGoogleIdentity = user?.identities.some(
-      // devuelve true si alguno de los providers (identities) del usuario es "google"
+    const hasGoogleIdentity = user?.identities?.some(
       (i) => i.provider === "google",
     );
 
-    if (hasGoogleIdentity) {
-      // si la tiene, refresca la sesión para obtener el token -> auth
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: {
-          scopes: "https://www.googleapis.com/auth/calendar.events",
-          queryParams: {
-            access_type: "offline",
-            prompt: "consent",
-          },
-          redirectTo: window.location.origin,
+    if (hasGoogleIdentity && session?.provider_token) {
+      // Ya tiene Google vinculado y hay token en sesión — guardarlo directamente
+      const { error } = await supabase.from("google_tokens").upsert(
+        {
+          user_id: session.user.id,
+          access_token: session.provider_token,
+          refresh_token: session.provider_refresh_token ?? null,
         },
-      });
+        { onConflict: "user_id" },
+      );
+      if (!error) {
+        setConnected(true);
+        console.log("✅ Token guardado desde sesión actual");
+      }
     } else {
-      // si no la tiene, se vincula con google -> linkIdentity
-      await supabase.auth.linkIdentity({
+      // Necesita pasar por OAuth para obtener el token
+      await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
           scopes: "https://www.googleapis.com/auth/calendar.events",

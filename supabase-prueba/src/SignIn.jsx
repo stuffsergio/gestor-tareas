@@ -6,11 +6,13 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSignIn = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -20,32 +22,45 @@ export default function SignUp() {
       setMessage("Error: ", error.message);
     } else {
       setMessage("Credenciales correctas, bienvenido al sistema");
+      setLoading(false);
       navigate("/home");
     }
   };
 
   return (
-    <div>
-      <h1>Sign In Page</h1>
+    <div className="py-10 px-10 flex flex-col gap-15 justify-center items-center">
+      <h1 className="font-bold text-2xl">Iniciar sesión</h1>
 
-      <form onSubmit={handleSignIn}>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Sign In</button>
+      <form
+        onSubmit={handleSignIn}
+        className="flex flex-col justify-center items-center gap-10 w-[30dvw] px-4"
+      >
+        <div className="flex flex-col justify-center items-center gap-5 w-full">
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Tu mejor email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full border border-[#a1a1a1] rounded-lg text-[#ededed] px-3 py-1.5 placeholder:text-[#a1a1a1]"
+          />
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full border border-[#a1a1a1] rounded-lg text-[#ededed] px-3 py-1.5 placeholder:text-[#a1a1a1]"
+          />
+        </div>
+        <button
+          type="submit"
+          className="w-full px-3 py-1.5 bg-[#0072f5] rounded-lg"
+        >
+          {loading ? "..." : "Entrar"}
+        </button>
       </form>
       <p>{message}</p>
     </div>
