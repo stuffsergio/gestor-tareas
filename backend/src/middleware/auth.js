@@ -14,18 +14,18 @@ export async function requireAuth(req, res, next) {
   }
 
   const authHeader = req.headers.authorization;
-  console.log("Auth header:", authHeader);
+  // console.log("Auth header:", authHeader);
 
   if (!authHeader) return res.status(401).json({ error: "No autorizado" });
 
   const token = authHeader.replace("Bearer ", "");
-  console.log("Token:", token?.slice(0, 20) + "...");
+  // console.log("Token:", token?.slice(0, 20) + "...");
 
   const {
     data: { user },
     error,
   } = await supabase.auth.getUser(token);
-  console.log("User:", user, "Error:", error);
+  // console.log("User:", user, "Error:", error);
 
   if (error || !user) return res.status(401).json({ error: "Token inválido" });
 
