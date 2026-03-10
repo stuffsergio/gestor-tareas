@@ -16,6 +16,12 @@ const allowedOrigins = [
 console.log("FRONTEND_URL:", process.env.FRONTEND_URL);
 console.log("Allowed origins:", allowedOrigins);
 
+console.log("ENV vars:", {
+  PORT: process.env.PORT,
+  FRONTEND_URL: process.env.FRONTEND_URL,
+  OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY ? "✅ existe" : "❌ falta",
+});
+
 app.use(
   cors({
     origin: (origin, callback) => {
