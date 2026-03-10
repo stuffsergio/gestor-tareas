@@ -13,10 +13,10 @@ const allowedOrigins = [
   process.env.FRONTEND_URL,
 ].filter(Boolean);
 
-console.log("FRONTEND_URL:", process.env.FRONTEND_URL);
-console.log("Allowed origins:", allowedOrigins);
+// console.log("FRONTEND_URL:", process.env.FRONTEND_URL);
+// console.log("Allowed origins:", allowedOrigins);
 
-console.log("ENV vars:", {
+/* console.log("ENV vars:", {
   PORT: process.env.PORT,
   FRONTEND_URL: process.env.FRONTEND_URL,
   OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY ? "✅ existe" : "❌ falta",
@@ -25,7 +25,7 @@ console.log("ENV vars:", {
     ? "✅ existe"
     : "❌ falta",
   SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY ? "✅ existe" : "❌ falta",
-});
+});*/
 
 app.use(
   cors({
