@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Política de Privacidad — Gestor de Tareas</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #0a0a0a;
+        --surface: #111111;
+        --border: #1f1f1f;
+        --text: #ededed;
+        --muted: #666;
+        --accent: #0072f5;
+        --accent-dim: rgba(0, 114, 245, 0.12);
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "DM Mono", monospace;
+        font-size: 14px;
+        line-height: 1.8;
+        min-height: 100vh;
+      }
+
+      /* Subtle grid background */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+          linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.015) 1px,
+            transparent 1px
+          );
+        background-size: 48px 48px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .container {
+        position: relative;
+        z-index: 1;
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 80px 24px 120px;
+      }
+
+      /* Header */
+      header {
+        margin-bottom: 72px;
+        padding-bottom: 40px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .tag {
+        display: inline-block;
+        font-size: 11px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent);
+        background: var(--accent-dim);
+        padding: 4px 10px;
+        border-radius: 2px;
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        font-family: "DM Serif Display", serif;
+        font-size: clamp(32px, 5vw, 52px);
+        font-weight: 400;
+        line-height: 1.1;
+        color: var(--text);
+        margin-bottom: 16px;
+      }
+
+      h1 em {
+        font-style: italic;
+        color: var(--accent);
+      }
+
+      .meta {
+        font-size: 12px;
+        color: var(--muted);
+        letter-spacing: 0.05em;
+      }
+
+      /* Sections */
+      section {
+        margin-bottom: 56px;
+      }
+
+      h2 {
+        font-family: "DM Serif Display", serif;
+        font-size: 22px;
+        font-weight: 400;
+        color: var(--text);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      h2::before {
+        content: attr(data-index);
+        font-family: "DM Mono", monospace;
+        font-size: 11px;
+        color: var(--accent);
+        background: var(--accent-dim);
+        padding: 2px 7px;
+        border-radius: 2px;
+        letter-spacing: 0.05em;
+        flex-shrink: 0;
+      }
+
+      p {
+        color: #aaa;
+        margin-bottom: 12px;
+      }
+
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      ul {
+        list-style: none;
+        margin: 12px 0;
+        padding: 0;
+      }
+
+      ul li {
+        color: #aaa;
+        padding: 6px 0 6px 20px;
+        position: relative;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      }
+
+      ul li:last-child {
+        border-bottom: none;
+      }
+
+      ul li::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+        font-size: 12px;
+      }
+
+      /* Highlight box */
+      .highlight {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-left: 3px solid var(--accent);
+        padding: 20px 24px;
+        border-radius: 0 4px 4px 0;
+        margin: 24px 0;
+      }
+
+      .highlight p {
+        color: var(--text);
+        font-size: 13px;
+      }
+
+      /* Contact block */
+      .contact-block {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        padding: 24px;
+        border-radius: 4px;
+        margin-top: 16px;
+      }
+
+      .contact-block a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .contact-block a:hover {
+        text-decoration: underline;
+      }
+
+      /* Footer */
+      footer {
+        margin-top: 80px;
+        padding-top: 32px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      footer span {
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      footer a {
+        font-size: 12px;
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          padding: 48px 20px 80px;
+        }
+        footer {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="tag">Legal</div>
+        <h1>Política de <em>Privacidad</em></h1>
+        <p class="meta">
+          Última actualización: 10 de marzo de 2026 &nbsp;·&nbsp; Gestor de
+          Tareas
+        </p>
+      </header>
+
+      <section>
+        <div class="highlight">
+          <p>
+            Esta política explica qué datos recopilamos, cómo los usamos y cómo
+            los protegemos cuando utilizas Gestor de Tareas
+            (<strong>gestor-tareas-amber.vercel.app</strong>).
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2 data-index="01">Datos que recopilamos</h2>
+        <p>
+          Recopilamos únicamente los datos necesarios para el funcionamiento de
+          la aplicación:
+        </p>
+        <ul>
+          <li>Dirección de correo electrónico (para autenticación)</li>
+          <li>
+            Tareas creadas por el usuario (título, prioridad, fecha de evento)
+          </li>
+          <li>
+            Token de acceso a Google Calendar (solo si el usuario lo autoriza
+            explícitamente)
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 data-index="02">Uso de Google Calendar</h2>
+        <p>
+          Si el usuario decide conectar su cuenta de Google, la aplicación
+          solicita acceso al scope <code>calendar.events</code> con el único fin
+          de:
+        </p>
+        <ul>
+          <li>
+            Crear eventos en el calendario del usuario cuando se añade una tarea
+            con fecha
+          </li>
+          <li>
+            Eliminar eventos del calendario cuando el usuario elimina una tarea
+          </li>
+        </ul>
+        <div class="highlight">
+          <p>
+            No leemos, analizamos ni compartimos el contenido del calendario del
+            usuario. El acceso se limita estrictamente a los eventos creados por
+            esta aplicación.
+          </p>
+        </div>
+        <p>
+          El usuario puede revocar este acceso en cualquier momento desde
+          <strong
+            >Mi cuenta de Google → Seguridad → Aplicaciones de terceros</strong
+          >
+          o desde la propia aplicación.
+        </p>
+      </section>
+
+      <section>
+        <h2 data-index="03">Almacenamiento de datos</h2>
+        <p>
+          Los datos se almacenan de forma segura en <strong>Supabase</strong>,
+          una plataforma de base de datos con cifrado en tránsito (TLS) y en
+          reposo. Los tokens de Google se guardan en la base de datos y se
+          utilizan exclusivamente para autenticar las peticiones a la API de
+          Google Calendar.
+        </p>
+      </section>
+
+      <section>
+        <h2 data-index="04">Compartición de datos</h2>
+        <p>
+          No vendemos, alquilamos ni compartimos los datos personales de los
+          usuarios con terceros, excepto con los proveedores de infraestructura
+          necesarios para el funcionamiento del servicio:
+        </p>
+        <ul>
+          <li>Supabase — base de datos y autenticación</li>
+          <li>Vercel — alojamiento del frontend</li>
+          <li>Railway — alojamiento del backend</li>
+          <li>
+            Google — integración con Google Calendar (solo con consentimiento
+            explícito)
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 data-index="05">Derechos del usuario</h2>
+        <p>El usuario tiene derecho a:</p>
+        <ul>
+          <li>Acceder a sus datos almacenados</li>
+          <li>Solicitar la eliminación de su cuenta y todos sus datos</li>
+          <li>Revocar el acceso a Google Calendar en cualquier momento</li>
+          <li>Exportar sus tareas</li>
+        </ul>
+        <p>
+          Para ejercer cualquiera de estos derechos, contacta con nosotros en la
+          dirección indicada al final de esta página.
+        </p>
+      </section>
+
+      <section>
+        <h2 data-index="06">Cookies</h2>
+        <p>
+          Esta aplicación no utiliza cookies de seguimiento ni de publicidad.
+          Únicamente se usan cookies de sesión estrictamente necesarias para
+          mantener al usuario autenticado.
+        </p>
+      </section>
+
+      <section>
+        <h2 data-index="07">Cambios en esta política</h2>
+        <p>
+          Cualquier cambio en esta política de privacidad se comunicará
+          actualizando la fecha de "última actualización" en la parte superior
+          de esta página. El uso continuado de la aplicación tras los cambios
+          implica la aceptación de la nueva política.
+        </p>
+      </section>
+
+      <section>
+        <h2 data-index="08">Contacto</h2>
+        <p>
+          Para cualquier consulta relacionada con la privacidad de tus datos:
+        </p>
+        <div class="contact-block">
+          <p>
+            ✉
+            <a href="mailto:sergioperezmontalvo@gmail.com"
+              >sergioperezmontalvo@gmail.com</a
+            >
+          </p>
+        </div>
+      </section>
+
+      <footer>
+        <span>© 2026 Gestor de Tareas</span>
+        <a href="https://gestor-tareas-amber.vercel.app">← Volver a la app</a>
+      </footer>
+    </div>
+  </body>
+</html>
