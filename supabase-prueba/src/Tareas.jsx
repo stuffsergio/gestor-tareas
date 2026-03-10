@@ -58,6 +58,30 @@ export default function Tareas() {
       currentSession?.access_token ? "✅ existe" : "❌ no existe",
     );
 
+    // Convierte "2026-03-10T18:00" a "2026-03-10T18:00:00+01:00"
+    function toLocalISOString(dateTimeLocal) {
+      const date = new Date(dateTimeLocal);
+      const offset = -date.getTimezoneOffset();
+      const sign = offset >= 0 ? "+" : "-";
+      const pad = (n) => String(Math.floor(Math.abs(n))).padStart(2, "0");
+      return (
+        date.getFullYear() +
+        "-" +
+        pad(date.getMonth() + 1) +
+        "-" +
+        pad(date.getDate()) +
+        "T" +
+        pad(date.getHours()) +
+        ":" +
+        pad(date.getMinutes()) +
+        ":00" +
+        sign +
+        pad(offset / 60) +
+        ":" +
+        pad(offset % 60)
+      );
+    }
+
     const { data: tarea, error } = await supabase
       .from("tareas")
       .insert([
@@ -65,7 +89,7 @@ export default function Tareas() {
           title,
           priority,
           user_id: currentSession.user.id,
-          event_date: eventDate || null,
+          event_date: eventDate ? toLocalISOString(eventDate) : null,
         },
       ])
       .select()
