@@ -36,10 +36,12 @@ app.use(
         callback(new Error(`CORS bloqueado para: ${origin}`));
       }
     },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
 
-app.options("*", cors());
+app.options("/*", cors());
 
 app.use(express.json());
 
