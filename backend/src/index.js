@@ -47,4 +47,18 @@ app.use(express.json());
 
 app.use("/api/ai", aiRoutes);
 
-app.listen(PORT, () => console.log(`Servidor running at ${PORT}`));
+app.get("/", (req, res) => {
+  res.json({ status: "Backend funcionando 🚀" });
+});
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Servidor running at ${PORT}`);
+});
+
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught Exception:", err);
+});
+
+process.on("unhandledRejection", (err) => {
+  console.error("Unhandled Rejection:", err);
+});
