@@ -18,6 +18,9 @@ export default function Landing() {
           Registrarse
         </Link>
       </div>
+      <footer>
+        <a href="/privacy.html">Política de privacidad</a>
+      </footer>
     </div>
   );
 }
