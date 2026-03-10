@@ -48,6 +48,7 @@ router.post("/chat", requireAuth, async (req, res) => {
 
     res.json({ reply });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ err: "Error llamando a OpenRouter" });
   }
 });
