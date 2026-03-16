@@ -150,3 +150,19 @@
     transform: translateY(0px);
   }
 }
+
+@keyframes letterColor {
+  0%,
+  100% {
+    color: "#7f77dd";
+  }
+  25% {
+    color: "#ef9f27";
+  }
+  50% {
+    color: "#1d9e75";
+  }
+  75% {
+    color: "#e24b4a";
+  }
+}

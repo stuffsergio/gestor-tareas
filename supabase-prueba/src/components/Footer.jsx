@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default function Footer() {
   return (
-    <div className="sticky bottom-0 h-[10dvh] w-full py-5 flex flex-row items- justify-center">
+    <div className="sticky bottom-0 min-h-[10dvh] w-full py-5 flex flex-row items-center justify-center border-t border-[#1f1f1f]">
       <div className="flex flex-row w-[20dvw] items-center justify-center gap-6 text-[#a1a1a1d7]">
         <div className="text-sm">@ 2026 RemAInd</div>
         <div className="opacity-20">|</div>

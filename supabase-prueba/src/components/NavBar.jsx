@@ -6,7 +6,7 @@ export default function NavBar() {
   const [active, setActive] = useState(1);
 
   return (
-    <nav className="sticky top-0 flex flex-row border-b border-[#1f1f1f] w-full h-13">
+    <nav className="sticky top-0 flex flex-row border-b border-[#1f1f1f] w-full min-h-13">
       <div className="flex-2 flex flex-col justify-center items-baseline">
         <span className="px-20">
           <p className="text-lg">RemAInd</p>
