@@ -151,18 +151,18 @@
   }
 }
 
-@keyframes letterColor {
-  0%,
+@keyframes pulse-shadow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 20px rgba(255, 255, 255, 0);
+  }
   100% {
-    color: "#7f77dd";
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
   }
-  25% {
-    color: "#ef9f27";
-  }
-  50% {
-    color: "#1d9e75";
-  }
-  75% {
-    color: "#e24b4a";
-  }
+}
+
+.pulse-shadow {
+  animation: pulse-shadow 1.8s ease-out infinite;
 }
