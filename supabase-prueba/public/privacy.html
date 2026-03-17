@@ -40,7 +40,6 @@
         min-height: 100vh;
       }
 
-      /* Subtle grid background */
       body::before {
         content: "";
         position: fixed;
@@ -65,7 +64,6 @@
         padding: 80px 24px 120px;
       }
 
-      /* Header */
       header {
         margin-bottom: 72px;
         padding-bottom: 40px;
@@ -104,7 +102,6 @@
         letter-spacing: 0.05em;
       }
 
-      /* Sections */
       section {
         margin-bottom: 56px;
       }
@@ -136,7 +133,6 @@
         color: #aaa;
         margin-bottom: 12px;
       }
-
       p:last-child {
         margin-bottom: 0;
       }
@@ -166,7 +162,6 @@
         font-size: 12px;
       }
 
-      /* Highlight box */
       .highlight {
         background: var(--surface);
         border: 1px solid var(--border);
@@ -181,7 +176,6 @@
         font-size: 13px;
       }
 
-      /* Contact block */
       .contact-block {
         background: var(--surface);
         border: 1px solid var(--border);
@@ -194,12 +188,10 @@
         color: var(--accent);
         text-decoration: none;
       }
-
       .contact-block a:hover {
         text-decoration: underline;
       }
 
-      /* Footer */
       footer {
         margin-top: 80px;
         padding-top: 32px;
@@ -215,7 +207,6 @@
         font-size: 12px;
         color: var(--muted);
       }
-
       footer a {
         font-size: 12px;
         color: var(--accent);
@@ -239,7 +230,7 @@
         <div class="tag">Legal</div>
         <h1>Política de <em>Privacidad</em></h1>
         <p class="meta">
-          Última actualización: 10 de marzo de 2026 &nbsp;·&nbsp; Gestor de
+          Última actualización: 17 de marzo de 2026 &nbsp;·&nbsp; Gestor de
           Tareas
         </p>
       </header>
@@ -266,41 +257,38 @@
             Tareas creadas por el usuario (título, prioridad, fecha de evento)
           </li>
           <li>
-            Token de acceso a Google Calendar (solo si el usuario lo autoriza
-            explícitamente)
+            Identificador de dispositivo para notificaciones push (gestionado
+            por OneSignal)
           </li>
         </ul>
       </section>
 
       <section>
-        <h2 data-index="02">Uso de Google Calendar</h2>
+        <h2 data-index="02">Notificaciones push</h2>
         <p>
-          Si el usuario decide conectar su cuenta de Google, la aplicación
-          solicita acceso al scope <code>calendar.events</code> con el único fin
-          de:
+          Si el usuario acepta recibir notificaciones, la aplicación utiliza
+          <strong>OneSignal</strong> para enviar recordatorios de tareas
+          directamente al dispositivo. El consentimiento es completamente
+          voluntario y puede revocarse en cualquier momento desde los ajustes
+          del navegador o del dispositivo.
         </p>
-        <ul>
-          <li>
-            Crear eventos en el calendario del usuario cuando se añade una tarea
-            con fecha
-          </li>
-          <li>
-            Eliminar eventos del calendario cuando el usuario elimina una tarea
-          </li>
-        </ul>
         <div class="highlight">
           <p>
-            No leemos, analizamos ni compartimos el contenido del calendario del
-            usuario. El acceso se limita estrictamente a los eventos creados por
-            esta aplicación.
+            Las notificaciones solo se usan para recordar al usuario sus propias
+            tareas. No se envían comunicaciones comerciales ni se comparte
+            información con terceros para fines publicitarios.
           </p>
         </div>
         <p>
-          El usuario puede revocar este acceso en cualquier momento desde
-          <strong
-            >Mi cuenta de Google → Seguridad → Aplicaciones de terceros</strong
+          OneSignal almacena un identificador anónimo del dispositivo para poder
+          entregar las notificaciones. Puedes consultar su política de
+          privacidad en
+          <a
+            href="https://onesignal.com/privacy_policy"
+            style="color: var(--accent)"
           >
-          o desde la propia aplicación.
+            onesignal.com/privacy_policy </a
+          >.
         </p>
       </section>
 
@@ -309,9 +297,7 @@
         <p>
           Los datos se almacenan de forma segura en <strong>Supabase</strong>,
           una plataforma de base de datos con cifrado en tránsito (TLS) y en
-          reposo. Los tokens de Google se guardan en la base de datos y se
-          utilizan exclusivamente para autenticar las peticiones a la API de
-          Google Calendar.
+          reposo.
         </p>
       </section>
 
@@ -326,10 +312,7 @@
           <li>Supabase — base de datos y autenticación</li>
           <li>Vercel — alojamiento del frontend</li>
           <li>Railway — alojamiento del backend</li>
-          <li>
-            Google — integración con Google Calendar (solo con consentimiento
-            explícito)
-          </li>
+          <li>OneSignal — entrega de notificaciones push</li>
         </ul>
       </section>
 
@@ -339,7 +322,9 @@
         <ul>
           <li>Acceder a sus datos almacenados</li>
           <li>Solicitar la eliminación de su cuenta y todos sus datos</li>
-          <li>Revocar el acceso a Google Calendar en cualquier momento</li>
+          <li>
+            Revocar el permiso de notificaciones push en cualquier momento
+          </li>
           <li>Exportar sus tareas</li>
         </ul>
         <p>
@@ -360,10 +345,10 @@
       <section>
         <h2 data-index="07">Cambios en esta política</h2>
         <p>
-          Cualquier cambio en esta política de privacidad se comunicará
-          actualizando la fecha de "última actualización" en la parte superior
-          de esta página. El uso continuado de la aplicación tras los cambios
-          implica la aceptación de la nueva política.
+          Cualquier cambio en esta política se comunicará actualizando la fecha
+          de "última actualización" en la parte superior de esta página. El uso
+          continuado de la aplicación tras los cambios implica la aceptación de
+          la nueva política.
         </p>
       </section>
 

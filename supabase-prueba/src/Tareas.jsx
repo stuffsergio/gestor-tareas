@@ -1,30 +1,30 @@
 import { useEffect, useState } from "react";
 import { supabase } from "./lib/supabaseClient";
 import { useAuth } from "./context/AuthContext";
+import NavBar from "./components/NavBar";
+import { useNotifications } from "./hooks/useNotifications";
+
 export default function Tareas() {
   const [title, setTitle] = useState("");
   const [priority, setPriority] = useState("");
   const [eventDate, setEventDate] = useState("");
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [calendarError, setCalendarError] = useState(false);
   const [message, setMessage] = useState("");
-  const [messageCalendar, setMessageCalendar] = useState("");
   const { session } = useAuth();
+  const { sendTaskReminder } = useNotifications();
 
   useEffect(() => {
     getTasks();
   }, []);
 
   async function getTasks() {
-    // consultar en la db las tareas, filtrado por user_id
     const { data, error } = await supabase.from("tareas").select("*");
 
     if (error) {
       console.log("Error fetching tareas: " + error);
     } else {
-      setTasks(data); // actualizamos tareas en la UI
-      console.log(data);
+      setTasks(data);
     }
 
     return data;
@@ -32,31 +32,18 @@ export default function Tareas() {
 
   async function addTasks(e) {
     e.preventDefault();
-    console.log("1. Submit detectado");
 
     if (!title.trim()) {
-      console.log("❌ Title vacío, saliendo");
       setMessage("Debes introducir el nombre primero");
       return;
     }
 
     setLoading(true);
     setMessage("Insertando tarea...");
-    setCalendarError(null);
-    console.log("2. Insertando tarea...", {
-      title,
-      priority,
-      eventDate,
-      user_id: session?.user?.id,
-    });
 
     const {
       data: { session: currentSession },
     } = await supabase.auth.getSession();
-    console.log(
-      "2b. access_token:",
-      currentSession?.access_token ? "✅ existe" : "❌ no existe",
-    );
 
     // Convierte "2026-03-10T18:00" a "2026-03-10T18:00:00+01:00"
     function toLocalISOString(dateTimeLocal) {
@@ -95,8 +82,6 @@ export default function Tareas() {
       .select()
       .single();
 
-    console.log("3. Resultado insert:", { tarea, error });
-
     if (error) {
       console.error("❌ Error guardando tarea:", error);
       setMessage("Error guardando la tarea, vuelve a intentarlo");
@@ -104,7 +89,6 @@ export default function Tareas() {
       return;
     }
 
-    console.log("4. Tarea guardada correctamente:", tarea);
     setMessage("✅ Tarea guardada correctamente");
     setTitle("");
     setPriority("");
@@ -112,66 +96,42 @@ export default function Tareas() {
     await getTasks();
     setLoading(false);
 
+    // Enviar notificación push si hay fecha límite
     if (eventDate && tarea) {
-      console.log("5. Llamando Edge Function con:", {
-        record: tarea,
-        user_id: session.user.id,
-      });
-
-      const { data: fnData, error: fnError } = await supabase.functions.invoke(
-        "google-calendar",
-        { body: { record: tarea, user_id: session.user.id } },
-      );
-
-      console.log("6. Respuesta Edge Function:", { fnData, fnError });
-
-      if (fnError) {
-        setCalendarError(
-          "No se pudo añadir al calendario. ¿Has conectado Google Calendar?",
-        );
-        setMessageCalendar("Error guardando tarea");
-      } else {
-        console.log("✅ Evento creado en Google Calendar");
-        setMessageCalendar("Se ha añadido a tu calendario");
-        getTasks();
+      try {
+        await sendTaskReminder({
+          taskTitle: tarea.title,
+          dueDate: new Date(tarea.event_date).toLocaleDateString("es-ES", {
+            day: "numeric",
+            month: "long",
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+          taskId: tarea.id,
+        });
+      } catch (err) {
+        // No bloqueamos al usuario si falla la notificación
+        console.warn("Push no enviado:", err.message);
       }
     }
   }
 
   async function deleteTask(task) {
-    // Intentar eliminar de Google Calendar, pero no bloquear si falla
-    if (task.google_event_id) {
-      const { error: fnError } = await supabase.functions.invoke(
-        "google-calendar-delete",
-        {
-          body: {
-            google_event_id: task.google_event_id,
-            user_id: session.user.id,
-          },
-        },
-      );
-      if (fnError)
-        console.warn("No se pudo eliminar de Google Calendar:", fnError);
-    }
-
-    // Siempre eliminar de Supabase independientemente del resultado anterior
     const { error } = await supabase.from("tareas").delete().eq("id", task.id);
 
     if (error) {
       console.error("❌ Error eliminando tarea:", error);
       setMessage("Error eliminando tarea");
     } else {
-      console.log("✅ Tarea eliminada");
       await getTasks();
       setMessage("Tarea eliminada correctamente");
     }
-
-    getTasks();
   }
 
   return (
-    <div className="flex flex-col gap-14 px-10 py-10">
-      <div>
+    <div>
+      <NavBar id={1} />
+      <div className="flex flex-col gap-14 px-10 py-10">
         <form
           onSubmit={addTasks}
           className="flex flex-col gap-4 justify-around"
@@ -188,10 +148,8 @@ export default function Tareas() {
               className="rounded-sm bg-[#1f1f1f] text-[#ededed] text-sm px-2 py-1"
             />
             <select
-              type="text"
               name="priority"
               id="priority"
-              placeholder="Prioridad"
               value={priority}
               onChange={(e) => setPriority(e.target.value)}
               className="rounded-sm bg-[#1f1f1f] text-[#ededed] text-sm px-2 py-1"
@@ -208,7 +166,6 @@ export default function Tareas() {
               onChange={(e) => setEventDate(e.target.value)}
               className="rounded-sm bg-[#1f1f1f] text-[#ededed] text-sm px-2 py-1"
             />
-            {calendarError && <p>{calendarError}</p>}
             <button
               type="submit"
               disabled={loading}
@@ -217,23 +174,19 @@ export default function Tareas() {
               {loading ? "..." : "Guardar"}
             </button>
           </div>
-          <div className="flex flex-col gap-2 text-sm">
-            {message && <p>{message}</p>}
-            {messageCalendar && <p>{"📆 - " + messageCalendar}</p>}
-          </div>
+          {message && <p className="text-sm">{message}</p>}
         </form>
-      </div>
-      <div className="flex flex-col justify-around items-start gap-4">
-        <h3>LISTADO DE TAREAS</h3>
-        <div className="flex flex-col w-full gap-4">
-          {tasks.map((task) => (
-            <div
-              key={task.id}
-              className="flex flex-col gap-3 px-6 py-3.5 bg-[#1f1f1f] rounded-lg"
-            >
-              <div className="flex flex-row items-center justify-between">
-                <span className="">
-                  <p className="">
+
+        <div className="flex flex-col justify-around items-start gap-4">
+          <h3>LISTADO DE TAREAS</h3>
+          <div className="flex flex-col w-full gap-4">
+            {tasks.map((task) => (
+              <div
+                key={task.id}
+                className="flex flex-col gap-3 px-6 py-3.5 bg-[#1f1f1f] rounded-lg"
+              >
+                <div className="flex flex-row items-center justify-between">
+                  <p>
                     {task.title} -{" "}
                     {task.priority === "Alta"
                       ? "🔴"
@@ -241,26 +194,23 @@ export default function Tareas() {
                         ? "🟡"
                         : "🟢"}
                   </p>
-                </span>
-                <span className="">
                   {task.event_date && (
                     <p>
                       {new Date(task.event_date).toLocaleDateString("es-ES")}
                     </p>
                   )}
-                </span>
+                </div>
+                <div className="flex flex-row items-center justify-end">
+                  <button
+                    onClick={() => deleteTask(task)}
+                    className="text-xs rounded-full bg-red-600 text-white px-2 py-1"
+                  >
+                    Eliminar
+                  </button>
+                </div>
               </div>
-              <div className="flex flex-row items-center justify-between">
-                <span>{task.google_event_id && <span>📆 - ✅</span>}</span>
-                <button
-                  onClick={() => deleteTask(task)}
-                  className="text-xs rounded-full bg-red-600 text-white px-2 py-1"
-                >
-                  Eliminar
-                </button>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>

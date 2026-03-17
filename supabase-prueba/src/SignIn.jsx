@@ -19,7 +19,8 @@ export default function SignUp() {
     });
 
     if (error) {
-      setMessage("Error: ", error.message);
+      setMessage("Credenciales incorrectas", error.message);
+      setLoading(false);
     } else {
       setMessage("Credenciales correctas, bienvenido al sistema");
       setLoading(false);
@@ -43,7 +44,7 @@ export default function SignUp() {
             placeholder="Tu mejor email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full border border-[#a1a1a1] rounded-lg text-[#ededed] px-3 py-1.5 placeholder:text-[#a1a1a1]"
+            className="w-full border border-[#1f1f1f] text-[#ededed] px-3 py-1.5 placeholder:text-[#a1a1a1]"
           />
           <input
             type="password"
@@ -52,13 +53,10 @@ export default function SignUp() {
             placeholder="Contraseña"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full border border-[#a1a1a1] rounded-lg text-[#ededed] px-3 py-1.5 placeholder:text-[#a1a1a1]"
+            className="w-full border border-[#1f1f1f] text-[#ededed] px-3 py-1.5 placeholder:text-[#a1a1a1]"
           />
         </div>
-        <button
-          type="submit"
-          className="w-full px-3 py-1.5 bg-[#0072f5] rounded-lg"
-        >
+        <button type="submit" className="w-full px-3 py-1.5 bg-[#0072f5]">
           {loading ? "..." : "Entrar"}
         </button>
       </form>

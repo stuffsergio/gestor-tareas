@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { supabase } from "./lib/supabaseClient";
-import ConnectGoogleCalendar from "./components/ConnectGoogleCalendar";
+import { NotificationBell } from "./components/NotificationBell";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ export default function Home() {
             Chat
           </button>
         </div>
-        <ConnectGoogleCalendar />
+        <NotificationBell />
         <button onClick={handleLogout}>Cerrar sesión</button>
       </div>
     </>

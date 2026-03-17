@@ -22,7 +22,9 @@ export default function Landing() {
 
   return (
     <div className="bg-none h-screen flex flex-col">
-      <NavBar />
+      <div className="relative">
+        <NavBar id={1} />
+      </div>
       <div className="flex flex-row h-full">
         <div className="relative group bg-cover bg-center flex-2 flex flex-col justify-center items-start border-r border-[#1f1f1f]">
           <div className="flex flex-col justify-center items-start gap-2 px-20">
