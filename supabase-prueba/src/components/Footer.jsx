@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="flex flex-row gap-3">
           <div className="group">
             <a
-              href="#"
+              href="https://github.com/stuffsergio"
               className="transition-all transform duration-180 group-hover:opacity-60"
             >
               <img
@@ -21,7 +21,7 @@ export default function Footer() {
           </div>
           <div className="group">
             <a
-              href="#"
+              href="www.linkedin.com/in/sergio-pérez-montalvo"
               className="transition-all transform duration-180 group-hover:opacity-60"
             >
               <img
@@ -33,7 +33,7 @@ export default function Footer() {
           </div>
           <div className="group">
             <a
-              href="#"
+              href="https://x.com/devvsergio"
               className="transition-all transform duration-180 group-hover:opacity-60"
             >
               <img src="../X.svg" alt="x" className="w-5 h-auto"></img>
