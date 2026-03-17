@@ -2,17 +2,17 @@
 
 @font-face {
   font-family: "Terminal";
-  src: url("../public/terminal-grotesque_open.woff2");
+  src: url("/terminal-grotesque_open.woff2");
 }
 
 @font-face {
   font-family: "SatoshiMedium";
-  src: url("../public/Satoshi-Medium.woff2");
+  src: url("/Satoshi-Medium.woff2");
 }
 
 @font-face {
   font-family: "SatoshiBold";
-  src: url("../public/Satoshi-Bold.woff2");
+  src: url("/Satoshi-Bold.woff2");
 }
 
 :root {
@@ -38,6 +38,10 @@
 
 .color-gray {
   color: "#a1a1a1";
+}
+
+.terminal {
+  font-family: "Terminal", sans-serif;
 }
 
 @keyframes shake-soft {

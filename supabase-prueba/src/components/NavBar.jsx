@@ -13,30 +13,30 @@ export default function NavBar() {
       </div>
       <div className="flex-3 h-full flex flex-row justify-center items-center text-sm border-l border-[#1f1f1f]">
         <div
-          className={`flex-1 h-full flex flex-col items-center justify-center hover:bg-[#1f1f1f]/50 transition-all duration-180 border-b border-r ${active === 1 ? "border-b-white border-r-[#1f1f1f]" : "border-transparent"}`}
+          className={`flex-1 h-full flex flex-col items-center justify-center hover:cursor-pointer hover:bg-[#1f1f1f]/50 transition-all duration-180 border-b border-r ${active === 1 ? "border-b-white border-r-[#1f1f1f]" : "border-transparent"}`}
           onClick={() => setActive(1)}
         >
-          Gestor de Tareas
+          <Link to="/tareas">Gestor de Tareas</Link>
         </div>
         <div
-          className={`flex-1 h-full flex flex-col items-center justify-center hover:bg-[#1f1f1f]/50 transition-all duration-180 border-b border-x ${active === 2 ? "border-b-white border-x-[#1f1f1f]" : "border-transparent"}`}
+          className={`flex-1 h-full flex flex-col items-center justify-center hover:cursor-pointer hover:bg-[#1f1f1f]/50 transition-all duration-180 border-b border-x ${active === 2 ? "border-b-white border-x-[#1f1f1f]" : "border-transparent"}`}
           onClick={() => setActive(2)}
         >
-          ChatAI
+          <Link to="/chat">ChatAI</Link>
         </div>
         <div
-          className={`flex-1 h-full flex flex-col items-center justify-center hover:bg-[#1f1f1f]/50 transition-all duration-180 border-b border-x ${active === 3 ? "border-b-white border-x-[#1f1f1f]" : "border-transparent"}`}
+          className={`flex-1 h-full flex flex-col items-center justify-center hover:cursor-pointer hover:bg-[#1f1f1f]/50 transition-all duration-180 border-b border-x ${active === 3 ? "border-b-white border-x-[#1f1f1f]" : "border-transparent"}`}
           onClick={() => setActive(3)}
         >
-          Pricing
+          <Link to="/pricing">Pricing</Link>
         </div>
         <div
-          className={`flex-1 h-full flex flex-col items-center justify-center hover:bg-[#1f1f1f]/50 transition-all duration-180 border-b border-l ${active === 4 ? "border-b-white border-l-[#1f1f1f]" : "border-transparent"}`}
+          className={`flex-1 h-full flex flex-col items-center justify-center hover:cursor-pointer hover:bg-[#1f1f1f]/50 transition-all duration-180 border-b border-l ${active === 4 ? "border-b-white border-l-[#1f1f1f]" : "border-transparent"}`}
           onClick={() => setActive(4)}
         >
-          Report
+          <Link to="/issues">Report</Link>
         </div>
-        <div className="flex-1 h-full flex flex-col items-center justify-center">
+        <div className="flex-1 h-full flex flex-col items-center justify-center hover:cursor-pointer">
           <Link
             className="satoshi-bold h-full w-full flex flex-col items-center justify-center text-black bg-[#fafaf9] hover:bg-[#fafaf9]/85"
             to="/signin"

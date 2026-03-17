@@ -43,7 +43,7 @@ export default function Footer() {
         <div className="absolute right-20 group">
           <a
             href="/privacy.html"
-            className="text-xs transition-all transform duration-180 group-hover:opacity-60"
+            className="text-xs transition-all transform duration-180 group-hover:opacity-60 group-hover:underline"
           >
             Política de privacidad
           </a>
