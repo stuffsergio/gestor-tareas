@@ -36,7 +36,7 @@ export default function Landing() {
             className="absolute inset-0 h-full w-full -z-20 object-cover opacity-40"
           />
           <div className="px-20 py-5">
-            <Link to="/signup">
+            <Link to="/signin">
               <Button />
             </Link>
           </div>
