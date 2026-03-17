@@ -63,8 +63,8 @@ export default function Landing() {
             <div className="relative flex-2 flex flex-col jusfify-center items-center border border-[#1f1f1f] p-5">
               <div className="flex flex-col items-start justify-baseline gap-4">
                 <TypeAnimation
-                  sequence={["One", 700, "Two", 700, "Three", 700]}
-                  style={{ fontSize: "10px" }}
+                  sequence={["Frictionless", 700, "Autonomous", 700, "Seamless", 700]}
+                  style={{ fontSize: "14px" }}
                   repeat={Infinity}
                 />
 
