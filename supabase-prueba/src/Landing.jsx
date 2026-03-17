@@ -44,7 +44,7 @@ export default function Landing() {
         <div className="flex-3 flex flex-col w-full justify-center">
           <div className="flex-1 h-[35dvh] flex flex-row gap-8 pt-8 pb-4 px-8">
             <div
-              style={{ backgroundImage: "url('/fondo-audioLines.svg')" }}
+              style={{ backgroundImage: "url('/fondo1.svg')" }}
               className="relative group flex-1 bg-cover bg-center bg-no-repeat flex flex-col justify-center items-center gap-6 border border-[#1f1f1f]"
             >
               <div className="absolute bg-black/20 inset-0 z-10" />
