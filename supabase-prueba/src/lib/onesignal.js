@@ -41,7 +41,7 @@ export function initOneSignal() {
 /**
  * Solicita permiso y suscribe al usuario a push.
  * @param {string} supabaseUserId
- */
+ 
 export async function subscribeToPush(supabaseUserId) {
   try {
     return await withOneSignal(async (OneSignal) => {
@@ -60,7 +60,7 @@ export async function subscribeToPush(supabaseUserId) {
     console.error("[OneSignal] subscribeToPush error:", err);
     return false;
   }
-}
+} */
 
 /**
  * Comprueba si el usuario está suscrito a push.
@@ -77,7 +77,7 @@ export async function isPushSubscribed() {
 
 /**
  * Vincula el usuario de Supabase con OneSignal (solo en producción).
- */
+ 
 export async function linkUserToOneSignal(supabaseUserId) {
   if (!supabaseUserId || !isProd) return;
   try {
@@ -87,6 +87,55 @@ export async function linkUserToOneSignal(supabaseUserId) {
     });
   } catch (err) {
     console.warn("[OneSignal] linkUser error:", err);
+  }
+} */
+
+/**
+ * Vincula el usuario de Supabase con OneSignal.
+ */
+export async function linkUserToOneSignal(supabaseUserId) {
+  // 1. Verificación básica
+  if (!supabaseUserId || !isProd) return;
+
+  try {
+    await withOneSignal(async (OneSignal) => {
+      // 2. OBTENER ID ACTUAL: Evita llamadas redundantes
+      const currentExternalId = await OneSignal.User.getExternalId();
+
+      if (currentExternalId !== supabaseUserId) {
+        await OneSignal.login(supabaseUserId);
+        console.log("[OneSignal] Usuario vinculado con ID:", supabaseUserId);
+      } else {
+        console.log("[OneSignal] El usuario ya estaba vinculado, omitiendo login.");
+      }
+    });
+  } catch (err) {
+    // Si es un 409, OneSignal suele recuperarse solo, lo bajamos a warning
+    console.warn("[OneSignal] Error no crítico al vincular usuario:", err);
+  }
+}
+
+/**
+ * Solicita permiso y suscribe al usuario a push.
+ */
+export async function subscribeToPush(supabaseUserId) {
+  try {
+    return await withOneSignal(async (OneSignal) => {
+      await OneSignal.Slidedown.promptPush();
+
+      // Esperamos un momento a que el estado se actualice tras el prompt
+      const optedIn = !!(await OneSignal.User.PushSubscription.optedIn);
+
+      // 3. Solo intentamos el link si se suscribió con éxito
+      if (optedIn && supabaseUserId && isProd) {
+        await linkUserToOneSignal(supabaseUserId);
+      }
+
+      return optedIn;
+    });
+  } catch (err) {
+    console.error("[OneSignal] subscribeToPush error:", err);
+    return false;
   }
 }
 
