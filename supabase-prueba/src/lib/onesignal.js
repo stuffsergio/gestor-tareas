@@ -94,13 +94,34 @@ export async function linkUserToOneSignal(supabaseUserId) {
  * Vincula el usuario de Supabase con OneSignal.
  */
 export async function linkUserToOneSignal(supabaseUserId) {
+  if (!supabaseUserId || !isProd) return;
+
+  try {
+    await withOneSignal(async (OneSignal) => {
+      // 1. Acceder a la propiedad directamente
+      const currentExternalId = OneSignal.User.externalId;
+
+      // 2. Solo hacer login si es diferente
+      if (currentExternalId !== supabaseUserId) {
+        await OneSignal.login(supabaseUserId);
+        console.log("[OneSignal] Usuario vinculado con ID:", supabaseUserId);
+      } else {
+        console.log("[OneSignal] El usuario ya está correctamente vinculado.");
+      }
+    });
+  } catch (err) {
+    console.warn("[OneSignal] Error no crítico al vincular usuario:", err);
+  }
+}
+
+export async function linkUserToOneSignal(supabaseUserId) {
   // 1. Verificación básica
   if (!supabaseUserId || !isProd) return;
 
   try {
     await withOneSignal(async (OneSignal) => {
       // 2. OBTENER ID ACTUAL: Evita llamadas redundantes
-      const currentExternalId = await OneSignal.User.getExternalId();
+      const currentExternalId = await OneSignal.User.externalId;
 
       if (currentExternalId !== supabaseUserId) {
         await OneSignal.login(supabaseUserId);
