@@ -72,3 +72,14 @@
 .shake-soft {
   animation: shake-soft 0.5s ease-in-out;
 }
+
+/* OJOS PASSWORD INPUT */
+
+.ojo-icon {
+  stroke: #1f1f1f;
+}
+
+.ojo-icon:hover {
+  stroke: white;
+  transition: all 0.6 ease-in-out;
+}

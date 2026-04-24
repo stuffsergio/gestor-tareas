@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { supabase } from "./lib/supabaseClient";
-import { NotificationBell } from "./components/NotificationBell";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -33,7 +32,6 @@ export default function Home() {
             Chat
           </button>
         </div>
-        <NotificationBell />
         <button onClick={handleLogout}>Cerrar sesión</button>
       </div>
     </>

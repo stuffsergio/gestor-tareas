@@ -147,7 +147,7 @@ export default function Landing() {
               <div className="z-20 flex flex-row items-center justify-center gap-5 px-6">
                 <div>
                   <img
-                    src="/calendar.png"
+                    src="/calendar.webp"
                     alt="calendario"
                     className="w-12 h-auto group-hover:animate-[shake-soft_0.4s_ease-in-out]"
                   />
@@ -165,7 +165,7 @@ export default function Landing() {
             </div>
 
             <div className="relative flex-1 border border-[#1f1f1f]">
-              <h1>No sé qué poner aquí</h1>
+              <h1>No sé qué poner aquí - algo de agnóstico</h1>
               <Cruces />
             </div>
           </div>

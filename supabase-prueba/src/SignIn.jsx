@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { supabase } from "./lib/supabaseClient";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import Arrows from "./components/Arrows";
+import { OjoAbierto, OjoTachado } from "./assets/Ojos";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showContraseña, setShowContraseña] = useState(false);
 
   const navigate = useNavigate();
 
@@ -29,38 +32,67 @@ export default function SignUp() {
   };
 
   return (
-    <div className="py-10 px-10 flex flex-col gap-15 justify-center items-center">
-      <h1 className="font-bold text-2xl">Iniciar sesión</h1>
-
-      <form
-        onSubmit={handleSignIn}
-        className="flex flex-col justify-center items-center gap-10 w-[30dvw] px-4"
-      >
-        <div className="flex flex-col justify-center items-center gap-5 w-full">
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Tu mejor email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full border border-[#1f1f1f] text-[#ededed] px-3 py-1.5 placeholder:text-[#a1a1a1]"
-          />
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full border border-[#1f1f1f] text-[#ededed] px-3 py-1.5 placeholder:text-[#a1a1a1]"
-          />
-        </div>
-        <button type="submit" className="w-full px-3 py-1.5 bg-[#0072f5]">
-          {loading ? "..." : "Entrar"}
-        </button>
-      </form>
-      <p>{message}</p>
+    <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 py-10 px-10 flex flex-col gap-15 justify-center items-center">
+      <div className="absolute top-0">
+        <Arrows texto={"Salir"} />
+      </div>
+      <div>
+        <form
+          onSubmit={handleSignIn}
+          className="flex flex-col justify-center items-center gap-10 w-[40dvw] px-6 py-6 border border-[#1f1f1f]"
+        >
+          <div className="flex flex-col gap-1.5 w-full">
+            <h1 className="font-bold text-xl">Iniciar sesión</h1>
+            <p className="text-sm opacity-70">
+              Ingresa tu correo para iniciar sesión
+            </p>
+          </div>
+          <div className="flex flex-col justify-center items-center gap-5 w-full">
+            <div className="flex flex-col gap-1.5 w-full text-sm">
+              <label htmlFor="email">Correo</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="tu@ejemplo.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full border border-[#1f1f1f] bg-[#1f1f1f]/30 text-[#ededed] px-3 py-1.5 placeholder:text-[#a1a1a1] focus:outline-none focus:ring-4 focus:ring-white/20 focus:border-white/50"
+              />
+            </div>
+            <div className="flex flex-col gap-1.5 w-full text-sm">
+              <label htmlFor="password">Secreto</label>
+              <div className="relative">
+                <input
+                  type={showContraseña ? "text" : "password"}
+                  name="password"
+                  id="password"
+                  placeholder="contraseña"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full border border-[#1f1f1f] bg-[#1f1f1f]/30 text-[#ededed] px-3 py-1.5 placeholder:text-[#a1a1a1] focus:outline-none focus:ring-4 focus:ring-white/20 focus:border-white/50"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowContraseña(!showContraseña)}
+                  className="absolute top-1/2 right-5 -translate-y-1/2"
+                >
+                  {showContraseña ? <OjoAbierto /> : <OjoTachado />}
+                </button>
+              </div>
+            </div>
+          </div>
+          <button type="submit" className="w-[30%] px-3 py-1.5 bg-[#0072f5]">
+            {loading ? "..." : "Entrar"}
+          </button>
+          <div>
+            <a href="/signup" className="text-xs opacity-70 tracking-tight">
+              Soy nuevo, crear una cuenta
+            </a>
+          </div>
+        </form>
+        <p>{message}</p>
+      </div>
     </div>
   );
 }

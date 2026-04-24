@@ -6,7 +6,7 @@ export default async function LLM(systemPrompt, message) {
       authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
     },
     body: JSON.stringify({
-      model: "stepfun/step-3.5-flash:free",
+      model: "z-ai/glm-4.5-air:free",
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user", content: message },

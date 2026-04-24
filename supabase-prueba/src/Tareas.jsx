@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { supabase } from "./lib/supabaseClient";
 import { useAuth } from "./context/AuthContext";
 import NavBar from "./components/NavBar";
-import { useNotifications } from "./hooks/useNotifications";
 
 export default function Tareas() {
   const [title, setTitle] = useState("");
@@ -12,7 +11,6 @@ export default function Tareas() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const { session } = useAuth();
-  const { sendTaskReminder } = useNotifications();
 
   useEffect(() => {
     getTasks();
@@ -95,25 +93,6 @@ export default function Tareas() {
     setEventDate("");
     await getTasks();
     setLoading(false);
-
-    // Enviar notificación push si hay fecha límite
-    if (eventDate && tarea) {
-      try {
-        await sendTaskReminder({
-          taskTitle: tarea.title,
-          dueDate: new Date(tarea.event_date).toLocaleDateString("es-ES", {
-            day: "numeric",
-            month: "long",
-            hour: "2-digit",
-            minute: "2-digit",
-          }),
-          taskId: tarea.id,
-        });
-      } catch (err) {
-        // No bloqueamos al usuario si falla la notificación
-        console.warn("Push no enviado:", err.message);
-      }
-    }
   }
 
   async function deleteTask(task) {
