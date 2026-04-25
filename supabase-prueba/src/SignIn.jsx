@@ -31,15 +31,32 @@ export default function SignUp() {
     }
   };
 
+  const handleSignInGithub = async () => {
+    setLoading(true);
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "github",
+      options: {
+        redirectTo: "http://localhost:5173/home",
+      },
+    });
+
+    if (error) {
+      setMessage("Error iniciando sesión con GitHub, prueba con otra opción");
+      setLoading(false);
+    } else {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 py-10 px-10 flex flex-col gap-15 justify-center items-center">
-      <div className="absolute top-0">
+      <div className="absolute top-0 left-10">
         <Arrows texto={"Salir"} />
       </div>
-      <div>
+      <div className="border border-[#1f1f1f] px-6 py-6 lg:w-[30dvw] md:w-[35dvw] w-[50dvw]">
         <form
           onSubmit={handleSignIn}
-          className="flex flex-col justify-center items-center gap-10 w-[40dvw] px-6 py-6 border border-[#1f1f1f]"
+          className="flex flex-col justify-center items-center gap-10"
         >
           <div className="flex flex-col gap-1.5 w-full">
             <h1 className="font-bold text-xl">Iniciar sesión</h1>
@@ -85,12 +102,22 @@ export default function SignUp() {
           <button type="submit" className="w-[30%] px-3 py-1.5 bg-[#0072f5]">
             {loading ? "..." : "Entrar"}
           </button>
-          <div>
-            <a href="/signup" className="text-xs opacity-70 tracking-tight">
-              Soy nuevo, crear una cuenta
-            </a>
-          </div>
         </form>
+        <div>
+          <button
+            type="button"
+            onClick={handleSignInGithub}
+            className="w-full py-1.5 border border-[#1f1f1f]"
+          >
+            Entrar con Google
+          </button>
+        </div>
+        <div>
+          <a href="/signup" className="text-xs opacity-70 tracking-tight">
+            Soy nuevo, crear una cuenta
+          </a>
+        </div>
+
         <p>{message}</p>
       </div>
     </div>

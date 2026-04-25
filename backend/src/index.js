@@ -1,8 +1,9 @@
-// backend/src/index.js
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import aiRoutes from "./routes/ai.js";
+import { toNodeHandler } from "better-auth/node";
+import { auth } from "./lib/auth.js";
 
 dotenv.config();
 const PORT = process.env.PORT || 3000;
@@ -25,11 +26,14 @@ app.use(
     },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true, // ← añade esto, Better Auth usa cookies
   }),
 );
 
-app.use(express.json());
+// Better Auth ANTES de express.json()
+app.all("/api/auth/*splat", toNodeHandler(auth));
 
+app.use(express.json());
 app.use("/api/ai", aiRoutes);
 
 app.get("/", (req, res) => {
