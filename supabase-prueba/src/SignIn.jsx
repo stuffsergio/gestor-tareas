@@ -53,7 +53,7 @@ export default function SignUp() {
       <div className="absolute top-0 left-10">
         <Arrows texto={"Salir"} />
       </div>
-      <div className="border border-[#1f1f1f] px-6 py-6 lg:w-[30dvw] md:w-[35dvw] w-[50dvw]">
+      <div className="lg:w-[30dvw] md:w-[35dvw] w-[50dvw] flex flex-col gap-8 px-6 py-6 border border-[#1f1f1f]">
         <form
           onSubmit={handleSignIn}
           className="flex flex-col justify-center items-center gap-10"
@@ -107,9 +107,10 @@ export default function SignUp() {
           <button
             type="button"
             onClick={handleSignInGithub}
-            className="w-full py-1.5 border border-[#1f1f1f]"
+            className="w-full flex flex-row items-center justify-center gap-3.5 py-2 border border-[#1f1f1f]"
           >
-            Entrar con Google
+            <img src="./GitHub.svg" alt="GitHub icon" className="w-5 h-auto" />
+            <p className="text-sm">Entrar con GitHub</p>
           </button>
         </div>
         <div>
