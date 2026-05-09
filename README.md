@@ -42,7 +42,7 @@ Backend API (Railway)
 - `dotenv`, `cors`
 
 **Frontend**
-- JavaScript vanilla
+- JavaScript
 - Vite
 - HTML + CSS
 
