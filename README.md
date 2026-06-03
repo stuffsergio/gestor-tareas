@@ -36,17 +36,20 @@ Backend API (Railway)
 ## Stack tecnológico
 
 **Backend**
+
 - Node.js + Express
 - Supabase (PostgreSQL gestionado)
 - OpenRouter API (acceso a LLM)
 - `dotenv`, `cors`
 
 **Frontend**
+
 - JavaScript
 - Vite
 - HTML + CSS
 
 **Infraestructura**
+
 - Frontend desplegado en [Vercel](https://vercel.com)
 - Backend desplegado en [Railway](https://railway.app)
 - Base de datos en [Supabase](https://supabase.com)
@@ -63,7 +66,7 @@ backend/
 │   ├── middleware/
 │   │   └── auth.js        # Validación de tokens
 │   ├── LLM.js             # Lógica de comunicación con OpenRouter
-│   └── index.js           # Punto de entrada del servidor
+│   └── app.js           # Punto de entrada del servidor
 ├── package.json
 └── .env
 ```

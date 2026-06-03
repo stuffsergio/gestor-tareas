@@ -39,4 +39,4 @@ app.get("/", (req, res) => {
 //   console.error("Unhandled Rejection:", err);
 // });
 
-export const app;
+export default app;
