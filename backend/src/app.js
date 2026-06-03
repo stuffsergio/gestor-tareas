@@ -1,12 +1,6 @@
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
-import aiRoutes from "./routes/ai.js";
-import { toNodeHandler } from "better-auth/node";
-import { auth } from "./lib/auth.js";
-
-dotenv.config();
-const PORT = process.env.PORT || 3000;
+import aiRoutes from "../routes/ai.js";
 
 const app = express();
 
@@ -30,9 +24,6 @@ app.use(
   }),
 );
 
-// Better Auth ANTES de express.json()
-app.all("/api/auth/*splat", toNodeHandler(auth));
-
 app.use(express.json());
 app.use("/api/ai", aiRoutes);
 
@@ -40,14 +31,12 @@ app.get("/", (req, res) => {
   res.json({ status: "Backend funcionando 🚀" });
 });
 
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Servidor running at ${PORT}`);
-});
+// process.on("uncaughtException", (err) => {
+//   console.error("Uncaught Exception:", err);
+// });
 
-process.on("uncaughtException", (err) => {
-  console.error("Uncaught Exception:", err);
-});
+// process.on("unhandledRejection", (err) => {
+//   console.error("Unhandled Rejection:", err);
+// });
 
-process.on("unhandledRejection", (err) => {
-  console.error("Unhandled Rejection:", err);
-});
+export const app;

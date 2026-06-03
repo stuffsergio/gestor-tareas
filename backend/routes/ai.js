@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { requireAuth } from "../middleware/auth.js";
-import LLM from "../LLM.js";
+import LLM from "../src/LLM.js";
 import { createClient } from "@supabase/supabase-js";
 import dotenv from "dotenv";
 
