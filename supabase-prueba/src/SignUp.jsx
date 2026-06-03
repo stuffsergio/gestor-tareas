@@ -20,7 +20,7 @@ export default function SignUp() {
       setMessage("Error: ", error.message);
     } else {
       setMessage("Revisa tu bandeja de entrada para confirmar");
-      navigate("/home");
+      navigate("/dashboard");
     }
   };
 

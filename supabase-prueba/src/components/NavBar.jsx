@@ -61,7 +61,7 @@ export default function NavBar({ id }) {
           ) : (
             <Link
               className="satoshi-bold h-full w-full flex flex-col items-center justify-center text-black bg-[#fafaf9] hover:bg-[#fafaf9]/85"
-              to="/signin"
+              to="/login"
             >
               <button>INICIAR SESIÓN</button>
             </Link>

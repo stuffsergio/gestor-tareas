@@ -22,8 +22,17 @@ export default function AuthProvider({ children }) {
     return () => subscription.unsubscribe();
   }, []);
 
+  async function cerrarSesion() {
+    await supabase.auth.signOut();
+    setSession(null);
+  }
+
   return (
-    <AuthContext.Provider value={{ session }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider
+      value={{ session, user: session?.user ?? null, cerrarSesion }}
+    >
+      {children}
+    </AuthContext.Provider>
   );
 }
 

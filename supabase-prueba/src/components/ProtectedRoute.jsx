@@ -5,7 +5,7 @@ export default function ProtectedRoute({ children }) {
   const { session } = useAuth();
 
   if (session === undefined) return <p>Cargando...</p>;
-  if (session === null) return <Navigate to="/signin" replace />;
+  if (session === null) return <Navigate to="/login" replace />;
 
   return children;
 }

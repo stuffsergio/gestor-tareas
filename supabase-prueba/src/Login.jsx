@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import Arrows from "./components/Arrows";
 import { OjoAbierto, OjoTachado } from "./assets/Ojos";
 
-export default function SignUp() {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -27,7 +27,7 @@ export default function SignUp() {
     } else {
       setMessage("Credenciales correctas, bienvenido al sistema");
       setLoading(false);
-      navigate("/home");
+      navigate("/dashboard");
     }
   };
 

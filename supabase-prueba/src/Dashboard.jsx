@@ -1,13 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import { supabase } from "./lib/supabaseClient";
+import { useAuth } from "./context/AuthContext";
+import { useEffect } from "react";
+import Profile from "./components/Profile";
 
-export default function Home() {
+export default function Dashboard() {
+  const { session, user } = useAuth();
+
   const navigate = useNavigate();
 
   async function handleLogout() {
     console.log("Saliendo...");
     await supabase.auth.signOut();
-    navigate("/signin");
+    navigate("/login");
   }
 
   function handleRutas(ruta) {
@@ -15,13 +20,13 @@ export default function Home() {
   }
 
   async function obtenerUsuario() {
-    const { data } = await supabase.auth.getUser();
-
-    console.log(data.user);
+    console.log(session);
+    console.log("☝ SESSION - USER 👇");
+    console.log(user);
   }
 
   return (
-    <>
+    <div className="relative">
       <div className="flex flex-col gap-10 py-10 px-10">
         <h1>HOME PAGE</h1>
         <div className="flex flex-row gap-10">
@@ -47,6 +52,7 @@ export default function Home() {
         </div>
         <button onClick={handleLogout}>Cerrar sesión</button>
       </div>
-    </>
+      <Profile />
+    </div>
   );
 }

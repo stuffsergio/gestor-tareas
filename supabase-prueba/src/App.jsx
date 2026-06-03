@@ -2,9 +2,9 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Landing from "./Landing";
-import Home from "./Home";
+import Dashboard from "./Dashboard";
 import Tareas from "./Tareas";
-import SignIn from "./SignIn";
+import Login from "./Login";
 import SignUp from "./SignUp";
 import Chat from "./Chat";
 import NotFoundPage from "./NotFoundPage";
@@ -15,10 +15,10 @@ const router = createBrowserRouter([
     element: <Landing />,
   },
   {
-    path: "/home",
+    path: "/dashboard",
     element: (
       <ProtectedRoute>
-        <Home />
+        <Dashboard />
       </ProtectedRoute>
     ),
   },
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
-  { path: "/signin", element: <SignIn /> },
+  { path: "/login", element: <Login /> },
   { path: "/signup", element: <SignUp /> },
   { path: "*", element: <NotFoundPage /> },
 ]);
