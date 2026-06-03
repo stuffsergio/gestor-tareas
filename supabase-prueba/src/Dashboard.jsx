@@ -6,14 +6,7 @@ import Profile from "./components/Profile";
 
 export default function Dashboard() {
   const { session, user } = useAuth();
-
   const navigate = useNavigate();
-
-  async function handleLogout() {
-    console.log("Saliendo...");
-    await supabase.auth.signOut();
-    navigate("/login");
-  }
 
   function handleRutas(ruta) {
     navigate(`/${ruta}`);
@@ -26,9 +19,9 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="relative">
+    <div className="relative min-h-screen">
       <div className="flex flex-col gap-10 py-10 px-10">
-        <h1>HOME PAGE</h1>
+        <h1>DASHBOARD PAGE</h1>
         <div className="flex flex-row gap-10">
           <button
             onClick={() => handleRutas("tareas")}
@@ -44,13 +37,12 @@ export default function Dashboard() {
           </button>
 
           <button
-            onClick={() => obtenerUsuario()}
+            onClick={obtenerUsuario}
             className="px-4 py-2 text-sm tracking-tight rounded-full bg-teal-600 text-white transition-all transform duration-200 hover:cursor-pointer"
           >
             Obtener INFO usuario
           </button>
         </div>
-        <button onClick={handleLogout}>Cerrar sesión</button>
       </div>
       <Profile />
     </div>

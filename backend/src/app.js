@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
-import aiRoutes from "../routes/ai.js";
+import aiRoutes from "../routes/ai.routes.js";
+import { errorHandler } from "../middleware/errorHandler.js";
+import { notFound } from "../middleware/notFound.js";
 
 const app = express();
 
@@ -25,7 +27,7 @@ app.use(
 );
 
 app.use(express.json());
-app.use("/api/ai", aiRoutes);
+app.use("/api", aiRoutes);
 
 app.get("/", (req, res) => {
   res.json({ status: "Backend funcionando 🚀" });
@@ -38,5 +40,8 @@ app.get("/", (req, res) => {
 // process.on("unhandledRejection", (err) => {
 //   console.error("Unhandled Rejection:", err);
 // });
+
+app.use(errorHandler);
+app.use(notFound);
 
 export default app;

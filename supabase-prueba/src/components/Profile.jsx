@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { fadeAnimation } from "../utils/animations";
 
 export default function Profile() {
   const { session, user, cerrarSesion } = useAuth();
@@ -32,7 +33,10 @@ export default function Profile() {
             className="bg-transparent fixed inset-0 z-20"
           />
 
-          <div className="absolute flex flex-col gap-2 z-30 bg-white/10 border border-white/10 top-5 right-0">
+          <motion.div
+            {...fadeAnimation}
+            className="absolute flex flex-col gap-2 z-30 bg-white/10 border border-white/10 top-5 right-0"
+          >
             <div className="flex flex-col gap-0.5 p-3">
               <p className="text-base">{userMetadata.full_name}</p>
               <p className="text-sm opacity-70">{userMetadata.email}</p>
@@ -41,7 +45,7 @@ export default function Profile() {
             <div className="p-3">
               <button onClick={handleLogout}>Cerrar sesión</button>
             </div>
-          </div>
+          </motion.div>
         </div>
       )}
     </div>

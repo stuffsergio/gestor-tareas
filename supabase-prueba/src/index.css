@@ -31,6 +31,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html,
+body {
+  overflow-x: hidden; /* ayuda a la animación de la sección del profile */
+}
+
 .satoshi-bold {
   font-family: "SatoshiBold", sans-serif;
   color: "#fafaf9";
