@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "./lib/supabaseClient";
 import { useAuth } from "./context/AuthContext";
 import { useEffect } from "react";
+import SideBarDashboard from "./components/SideBarDashboard";
 import Profile from "./components/Profile";
 
 export default function Dashboard() {
@@ -19,7 +20,8 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen flex flex-row">
+      <SideBarDashboard />
       <div className="flex flex-col gap-10 py-10 px-10">
         <h1>DASHBOARD PAGE</h1>
         <div className="flex flex-row gap-10">
