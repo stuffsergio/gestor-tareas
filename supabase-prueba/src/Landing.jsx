@@ -74,7 +74,7 @@ export default function Landing() {
             </div>
             <div className="relative group flex-2 flex flex-col items-start border border-[#1f1f1f] p-6 z-10 bg-black">
               <div className="relative flex flex-col items-start justify-end w-full h-full gap-3">
-                <div className="-z-10 relative flex flex-col justify-center w-full gap-3 px-14">
+                <div className="-z-10 relative flex flex-col justify-center w-full gap-3 pb-12 px-14">
                   <div className="w-full flex flex-row items-center justify-between px-3 py-1 gap-3 border border-[#F4A259]">
                     <p>En solo 1 click</p>{" "}
                     <MousePointerClick className="w-4 h-auto group-hover:animate-[shake-soft_0.4s_ease-in-out]" />
