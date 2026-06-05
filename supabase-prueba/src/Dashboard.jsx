@@ -4,6 +4,7 @@ import { useAuth } from "./context/AuthContext";
 import { useEffect } from "react";
 import SideBarDashboard from "./components/SideBarDashboard";
 import Profile from "./components/Profile";
+import ListaTareas from "./components/ListaTareas";
 
 export default function Dashboard() {
   const { session, user } = useAuth();
@@ -44,6 +45,9 @@ export default function Dashboard() {
           >
             Obtener INFO usuario
           </button>
+        </div>
+        <div>
+          <ListaTareas />
         </div>
       </div>
       <Profile />
