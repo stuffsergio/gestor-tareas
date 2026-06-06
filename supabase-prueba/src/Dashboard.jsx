@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import SideBarDashboard from "./components/SideBarDashboard";
 import Profile from "./components/Profile";
 import ListaTareas from "./components/ListaTareas";
+import CrearTarea from "./components/CrearTarea";
 
 export default function Dashboard() {
   const { session, user } = useAuth();
@@ -46,8 +47,13 @@ export default function Dashboard() {
             Obtener INFO usuario
           </button>
         </div>
-        <div>
-          <ListaTareas />
+        <div className="flex flex-row gap-20">
+          <div>
+            <ListaTareas />
+          </div>
+          <div>
+            <CrearTarea />
+          </div>
         </div>
       </div>
       <Profile />

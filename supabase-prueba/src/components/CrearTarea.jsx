@@ -2,10 +2,13 @@ import { useState } from "react";
 import { crearTarea } from "../lib/tareasApi";
 
 export default function CrearTarea() {
+  const fecha = Date.now();
+  const fechaActual = new Date(fecha);
+  const fechaFormateada = fechaActual.toLocaleDateString();
   const initialForm = {
     title: "",
     priority: "Media",
-    eventDate: new Date.now(),
+    eventDate: fechaFormateada,
   };
   const [form, setForm] = useState(initialForm);
 
