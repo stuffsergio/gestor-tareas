@@ -38,41 +38,60 @@ export default function CrearTarea() {
 
   return (
     <>
-      {/* OVERLAY */}
+      {/* OVERLAY 
       <div className="fixed inset-0 bg-white/10" />
+      */}
 
-      <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-[50dvw] h-[50dvh] p-6">
-        <h1>FORMULARIO PARA CREAR TAREAS</h1>
+      <div className="p-8">
+        <h1>CREAR TAREAS</h1>
 
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="title">Título</label>
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-3 border p-5"
+        >
+          <div className="flex flex-col gap-1">
+            <label htmlFor="title" className="text-lg satoshi-bold">
+              Título
+            </label>
             <input
               type="text"
               name="title"
               value={form.title}
               onChange={handleChange}
+              className="text-base py-1.5 px-3 border border-[#1f1f1f] focus:outline-none focus:ring-4 focus:ring-gray-300/30 focus:border-white transition-all transform duration-200"
             />
           </div>
-          <div>
-            <label htmlFor="priority">Prioridad</label>
+          <div className="flex flex-col gap-1">
+            <label htmlFor="priority" className="text-lg satoshi-bold">
+              Prioridad
+            </label>
             <select
               name="priority"
               value={form.priority}
               onChange={handleChange}
+              className="text-base py-1.5 px-3 border border-[#1f1f1f] focus:outline-none focus:ring-4 focus:ring-gray-300/30 focus:border-white transition-all transform duration-200"
             >
-              <option value="Baja">Baja</option>
-              <option value="Media">Media</option>
-              <option value="Alta">Alta</option>
+              <option value="Baja" className="bg-black text-white">
+                Baja
+              </option>
+              <option value="Media" className="bg-black text-white">
+                Media
+              </option>
+              <option value="Alta" className="bg-black text-white">
+                Alta
+              </option>
             </select>
           </div>
-          <div>
-            <label htmlFor="eventDate">Fecha</label>
+          <div className="flex flex-col gap-1">
+            <label htmlFor="eventDate" className="text-lg satoshi-bold">
+              Fecha
+            </label>
             <input
               type="datetime"
               name="eventDate"
               value={form.eventDate}
               onChange={handleChange}
+              className="text-base py-1.5 px-3 border border-[#1f1f1f] focus:outline-none focus:ring-4 focus:ring-gray-300/30 focus:border-white transition-all transform duration-200"
             />
           </div>
 

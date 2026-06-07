@@ -14,7 +14,7 @@ export default function ListaTareas() {
   }, []);
 
   return (
-    <div>
+    <div className="p-8">
       <h1>LISTA DE TAREAS</h1>
       {/* Tarjeta Card */}
       <div className="flex flex-col gap-2">

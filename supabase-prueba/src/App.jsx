@@ -10,10 +10,7 @@ import Chat from "./Chat";
 import NotFoundPage from "./NotFoundPage";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Landing />,
-  },
+  { path: "/", element: <Landing /> },
   {
     path: "/dashboard",
     element: (
