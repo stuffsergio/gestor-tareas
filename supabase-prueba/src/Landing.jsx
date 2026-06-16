@@ -21,20 +21,23 @@ export default function Landing() {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-none h-screen flex flex-col">
-      <div className="relative">
-        <NavBar id={1} />
+    <div className="relative bg-none h-screen flex flex-col">
+      <div className="z-60">
+        <NavBar id={0} />
       </div>
-      <div className="flex flex-row h-full">
-        <div className="relative group bg-cover bg-center flex-2 flex flex-col justify-center items-start border-r border-[#1f1f1f]">
-          <div className="flex flex-col justify-center items-start gap-2 px-20">
-            <div className="flex flex-row items-center gap-2">
+      <div className="flex md:flex-row flex-col h-full">
+        {/* MAIN + FONDO ESTRELLAS*/}
+        <div className="relative md:h-full h-[93dvh] group bg-cover bg-center md:flex-2 flex flex-col justify-center md:items-start items-center md:gap-0 gap-6 border-r border-[#1f1f1f]">
+          <div className="flex flex-col justify-center md:items-start items-center md:gap-2 gap-8 md:px-20 px-10">
+            <div className="flex flex-row items-center md:gap-2 gap-3">
               <span>
-                <NotepadTextDashed className="w-4 h-auto" />
+                <NotepadTextDashed className="md:w-4 w-8 h-auto" />
               </span>
-              <h1 className="text-base/tight">Tu Gestor de Tareas</h1>
+              <h1 className="md:text-base/tight text-2xl">
+                Tu Gestor de Tareas
+              </h1>
             </div>
-            <p className="text-2xl/tight tracking-normal satoshi-bold">
+            <p className="text-2xl/tight leading-relaxed tracking-normal satoshi-bold md:text-start text-center">
               The most comprehensive schedule framework for your mind
             </p>
           </div>
@@ -49,15 +52,18 @@ export default function Landing() {
             </Link>
           </div>
         </div>
-        <div className="flex-3 flex flex-col w-full justify-center">
-          <div className="flex-1 h-[35dvh] flex flex-row gap-8 pt-8 pb-4 px-8">
+
+        {/* GRID (flex) */}
+        <div className="md:flex-3 flex flex-col md:w-full md:justify-center">
+          {/* PARTE DE ARRIBA GRID */}
+          <div className="md:flex-1 h-[35dvh] flex md:flex-row flex-col gap-8 pt-8 pb-4 px-8">
             <div
               style={{
                 backgroundImage: "url('/fondo3.svg')",
                 width: "100%",
                 height: "100%",
               }}
-              className="relative group flex-1  bg-center bg-no-repeat flex flex-col justify-center items-center gap-6 border border-[#1f1f1f]"
+              className="relative group flex-1 bg-center bg-no-repeat flex flex-col justify-center items-center gap-6 border border-[#1f1f1f]"
             >
               <div className="absolute bg-black/20 inset-0 z-10" />
               <Link
@@ -72,7 +78,7 @@ export default function Landing() {
 
               <Cruces />
             </div>
-            <div className="relative group flex-2 flex flex-col items-start border border-[#1f1f1f] p-6 z-10 bg-black">
+            <div className="relative group md:flex-2 flex flex-col items-start border border-[#1f1f1f] p-6 z-10 bg-black">
               <div className="relative flex flex-col items-start justify-end w-full h-full gap-3">
                 <div className="-z-10 relative flex flex-col justify-center w-full gap-3 pb-12 px-14">
                   <div className="w-full flex flex-row items-center justify-between px-3 py-1 gap-3 border border-[#F4A259]">
@@ -111,8 +117,11 @@ export default function Landing() {
               <Cruces />
             </div>
           </div>
-          <div className="flex-1 flex flex-row gap-8 pt-4 pb-8 px-8">
-            <div className="relative group flex-2 border border-[#1f1f1f] flex flex-col justify-center gap-16 items-center p-4">
+
+          {/* PARTE DE ABAJO GRID */}
+          <div className="md:flex-1 md:flex md:flex-row gap-8 pt-4 pb-8 px-8">
+            {/* PARTE IZQ */}
+            <div className="relative group md:flex-2 border border-[#1f1f1f] flex flex-col justify-center gap-16 items-center p-4">
               <div className="w-full flex flex-row items-center justify-center gap-2 px-8">
                 <div className="relative">
                   <div className="bg-white rounded-full p-2">
@@ -164,6 +173,7 @@ export default function Landing() {
               <Cruces />
             </div>
 
+            {/* PARTE DCHA */}
             <div className="relative flex-1 border border-[#1f1f1f]">
               <h1>No sé qué poner aquí - algo de agnóstico</h1>
               <Cruces />
@@ -171,7 +181,9 @@ export default function Landing() {
           </div>
         </div>
       </div>
-      <Footer />
+      <div>
+        <Footer />
+      </div>
     </div>
   );
 }
